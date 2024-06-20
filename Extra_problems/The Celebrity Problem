@@ -1,0 +1,63 @@
+class Solution 
+{
+    private:
+    bool knows(std::vector<std::vector<int>>& M, int a, int b)
+    {
+        return M[a][b] == 1;
+    }
+    
+    public:
+    //Function to find if there is a celebrity in the party or not.
+    int celebrity(std::vector<std::vector<int>>& M, int n) 
+    {
+        std::stack<int> s;
+        // Step 1: Push all elements into the stack
+        for (int i = 0; i < n; i++)
+            s.push(i);
+
+        // Step 2: Determine the potential celebrity
+        while (s.size() > 1)
+        {
+            int a = s.top();
+            s.pop();
+            int b = s.top();
+            s.pop();
+
+            if (knows(M, a, b))
+                s.push(b);
+            else
+                s.push(a);
+        }
+
+        // Step 3: Verify the potential celebrity
+        int candidate = s.top();
+        
+        // Check if the candidate knows no one and everyone knows the candidate
+        bool rowCheck = true;
+        for (int i = 0; i < n; i++)
+        {
+            if (M[candidate][i] != 0)
+            {
+                rowCheck = false;
+                break;
+            }
+        }
+
+        bool colCheck = true;
+        for (int i = 0; i < n; i++)
+        {
+            if (i != candidate && M[i][candidate] != 1)
+            {
+                colCheck = false;
+                break;
+            }
+        }
+
+        if (rowCheck && colCheck)
+            return candidate;
+        else
+            return -1;
+    }
+};
+
+//The Above is the approach that can be used to solve the celebrity problem, You can use this to refer and to learn the concept:).
