@@ -1,39 +1,24 @@
-public class Solution {
+class Solution {
     public int trap(int[] height) {
-        int left = 0;
-        int leftIndex = -1;
-        int water = 0;
-        int inside = 0;
-        HashSet<String> range = new HashSet<String>();
-        for (int i = 0; i < height.length; i ++) {
-            if (height[i] >= left) {
-                range.add(leftIndex+","+i);
-                water = water + left * (i - leftIndex - 1) - inside;
-                left = height[i];
-                leftIndex = i;
-                inside = 0;
+        int n=height.length;
+        int left[]=new int[n];
+        int right[]=new int[n];
+        left[0]=height[0];
+        for(int i=1;i<n;i++){
+            left[i]=Math.max(left[i-1],height[i]);
 
-            }
-            else {
-                inside += height[i];
-            }
         }
-        int right = 0;
-        int rightIndex = height.length;
-        inside = 0;
-        for (int i = height.length - 1; i >= 0; i --) {
-            if (height[i] >= right) {
-                if (!range.contains(i+","+rightIndex)) {
-                    water = water + right * (rightIndex - i - 1) - inside;
-                }
-                right = height[i];
-                rightIndex = i;
-                inside = 0;
-            }
-            else {
-                inside += height[i];
-            }
+        right[n-1]=height[n-1];
+        for(int i=n-2;i>=0;i--)
+        {
+            right[i]=Math.max(right[i+1],height[i]);
         }
-        return water;
+        int ans=0;
+        for(int i=0;i<n;i++)
+        {
+            ans+=Math.min(left[i],right[i])-height[i];
+        }
+        return ans;
+        
     }
 }
