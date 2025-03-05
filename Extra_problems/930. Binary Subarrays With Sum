@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int numSubarraysWithSum(vector<int>& nums, int goal) {
+        int n=nums.size();
+        unordered_map<int,int> mp;
+        int currsum=0;
+        int count=0;
+        
+        mp[0]=1;
+        for(int &num:nums)
+        {
+            currsum+=num;
+            if(mp.find(currsum-goal)!=mp.end())
+            {
+                count+=mp[currsum-goal];
+            }
+            mp[currsum]++;
+
+
+        }
+        return count;
+        
+    }
+};
