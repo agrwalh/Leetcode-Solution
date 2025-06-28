@@ -1,3 +1,5 @@
+//Done using DP
+
 class Solution {
   public:
     bool isSubsetSum(vector<int>& arr, int sum) {
