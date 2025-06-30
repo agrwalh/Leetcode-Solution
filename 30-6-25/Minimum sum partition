@@ -1,0 +1,42 @@
+class Solution {
+
+  public:
+     int minDifference(vector<int>& arr) {
+        int range = 0;
+        for (int num : arr)
+            range += num;
+
+        int n = arr.size();
+        bool t[n + 1][range + 1];
+
+        // Initialization
+        for (int i = 0; i <= n; i++) {
+            for (int j = 0; j <= range; j++) {
+                if (i == 0)
+                    t[i][j] = false;
+                if (j == 0)
+                    t[i][j] = true;
+            }
+        }
+
+        // Fill the subset sum table
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= range; j++) {
+                if (arr[i - 1] <= j)
+                    t[i][j] = t[i - 1][j] || t[i - 1][j - arr[i - 1]];
+                else
+                    t[i][j] = t[i - 1][j];
+            }
+        }
+
+        // Find the minimum difference
+        int mn = INT_MAX;
+        for (int s1 = 0; s1 <= range / 2; s1++) {
+            if (t[n][s1] == true) {
+                mn = min(mn, range - 2 * s1);
+            }
+        }
+
+        return mn;
+    }
+};
