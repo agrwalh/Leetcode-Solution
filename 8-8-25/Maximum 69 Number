@@ -1,0 +1,25 @@
+
+class Solution {
+public:
+    int maximum69Number (int num) 
+    {
+        int placevalue=0;
+        int placevaluesix=-1;
+        int temp=num;
+
+        while(temp>0){
+            int rem=temp%10;
+
+            if (rem==6)
+            placevaluesix=placevalue;
+            temp=temp/10;
+            placevalue++;
+
+        }
+        if(placevalue==-1)
+        return num;
+
+        return (num+ 3*pow(10,placevaluesix));
+        
+    }
+};
