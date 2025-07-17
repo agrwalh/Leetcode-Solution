@@ -1,0 +1,31 @@
+class Solution {
+public:
+    bool isValid(string st) {
+        stack<char> s;
+        for (int i = 0; i < st.length(); i++) {
+            char ch = st[i];
+            if (ch == '(' || ch == '{' || ch == '[') {
+                s.push(ch);
+            } else if (ch == ')' || ch == '}' || ch == ']') {
+                if (!s.empty()) {
+                    char top = s.top();
+                    if ((ch == ')' && top == '(') || 
+                        (ch == '}' && top == '{') || 
+                        (ch == ']' && top == '[')) {
+                        s.pop();
+                    } else {
+                        return false; // Invalid closing bracket
+                    }
+                } else {
+                    return false; // Closing bracket with no corresponding opening bracket
+                }
+            } else {
+                return false; // Invalid character in the string
+            }
+        }
+        return s.empty(); // Stack should be empty if all brackets are balanced
+    }
+};
+// Time Complexity: O(N)
+
+// Space Complexity: O(N)
