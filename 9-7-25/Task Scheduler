@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int leastInterval(vector<char>& tasks, int n) 
+    {
+        vector<int>mp(26,0);
+        for(char&ch:tasks){
+            mp[ch-'A']++;
+        }
+        sort(begin(mp),end(mp));
+        int maxf=mp[25];
+        int gad=maxf-1;
+        int isp=n*gad;
+        for(int i=24;i>=0;i--){
+            isp-=min(mp[i],gad);
+        }
+        if(isp>0){
+            return tasks.size()+isp;
+        }
+        return tasks.size();
+        
+    }
+};
