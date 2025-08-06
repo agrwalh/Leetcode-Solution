@@ -1,0 +1,26 @@
+class Solution {
+public:
+const long long MOD = 1e9 + 7;
+    int countGoodNumbers(long long n) 
+    {
+        long long evenposition=(n+1)/2;
+        long long oddposition=n/2;
+        long long evenpart=power(5,evenposition);
+        long long oddpart=power(4,oddposition);
+        return (int)((evenpart*oddpart)%MOD);
+    }
+    private:
+    long long power(long long base,long long expo)
+    {
+        int res=1;
+        base%=MOD;
+        while(expo>0){
+            if(expo%2==1){
+                res=(res*base)%MOD;
+            }
+            base=(base*base)%MOD;
+            expo/=2;
+        }
+        return res;
+    }
+};
